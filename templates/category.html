@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{{ cat.name }} - SIPANDA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary:#2563eb;
+    --primary2:#3b82f6;
+    --dark:#0f172a;
+    --text:#475569;
+    --border:#e2e8f0;
+    --bg:#edf2f7;
+    --white:#ffffff;
+    --danger:#ef4444;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:var(--bg);
+    color:var(--dark);
+}
+
+/* ================= LAYOUT ================= */
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+
+    width:230px;
+
+    background:
+    linear-gradient(180deg,#0f172a,#1d4ed8);
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    bottom:0;
+
+    padding:18px;
+
+    overflow-y:auto;
+}
+
+/* BRAND */
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:28px;
+}
+
+.brand img{
+
+    width:48px;
+    height:48px;
+
+    object-fit:cover;
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:4px;
+}
+
+.brand h2{
+
+    color:white;
+
+    font-size:22px;
+
+    font-weight:800;
+
+    line-height:1;
+}
+
+.brand span{
+    color:#60a5fa;
+}
+
+.brand small{
+
+    color:#cbd5e1;
+
+    font-size:10px;
+}
+
+/* NAV */
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.nav a{
+
+    text-decoration:none;
+
+    color:#e2e8f0;
+
+    padding:11px 14px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.nav a:hover,
+.nav a.active{
+
+    background:rgba(255,255,255,.08);
+}
+
+/* USER */
+
+.user{
+
+    margin-top:25px;
+
+    background:rgba(255,255,255,.06);
+
+    padding:13px;
+
+    border-radius:14px;
+
+    color:white;
+}
+
+.user h4{
+    font-size:13px;
+}
+
+.user small{
+    font-size:10px;
+    color:#cbd5e1;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+
+    margin-left:230px;
+
+    width:calc(100% - 230px);
+
+    padding:20px;
+}
+
+/* ================= TOP ================= */
+
+.top{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:20px 24px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:16px;
+
+    box-shadow:0 4px 14px rgba(15,23,42,.04);
+}
+
+.top h2{
+
+    font-size:28px;
+
+    margin-bottom:3px;
+}
+
+.top p{
+
+    color:#64748b;
+
+    font-size:13px;
+}
+
+/* ================= BUTTON ================= */
+
+.btn{
+
+    border:none;
+
+    text-decoration:none;
+
+    background:
+    linear-gradient(135deg,var(--primary),var(--primary2));
+
+    color:white;
+
+    padding:10px 16px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn-red{
+
+    background:
+    linear-gradient(135deg,#dc2626,#ef4444);
+}
+
+/* ================= BOX ================= */
+
+.box{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px 20px;
+
+    margin-bottom:16px;
+
+    box-shadow:0 4px 14px rgba(15,23,42,.04);
+}
+
+.box h3{
+
+    font-size:20px;
+
+    margin-bottom:14px;
+}
+
+/* ================= FORM ================= */
+
+.form{
+
+    display:flex;
+
+    gap:10px;
+}
+
+.input{
+
+    flex:1;
+
+    height:48px;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:0 16px;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:13px;
+
+    outline:none;
+
+    background:#f8fafc;
+}
+
+.input:focus{
+
+    border-color:var(--primary);
+
+    background:white;
+}
+
+/* ================= SEARCH ================= */
+
+.search-box{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:14px 18px;
+
+    margin-bottom:16px;
+
+    box-shadow:0 4px 14px rgba(15,23,42,.04);
+}
+
+.search-wrap{
+    position:relative;
+}
+
+.search-wrap input{
+
+    width:100%;
+
+    height:46px;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    background:#f8fafc;
+
+    padding:0 16px 0 45px;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:13px;
+
+    outline:none;
+}
+
+.search-icon{
+
+    position:absolute;
+
+    left:16px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    font-size:16px;
+
+    color:#64748b;
+}
+
+/* ================= LIST FOLDER ================= */
+
+.folder-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+}
+
+/* ITEM */
+
+.folder-item{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:16px 18px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    box-shadow:0 4px 14px rgba(15,23,42,.04);
+
+    border:1px solid #edf2f7;
+
+    transition:.3s;
+}
+
+.folder-item:hover{
+
+    border-color:#bfdbfe;
+
+    transform:translateY(-2px);
+}
+
+/* LEFT */
+
+.folder-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+}
+
+.folder-icon{
+
+    width:50px;
+    height:50px;
+
+    border-radius:14px;
+
+    background:#dbeafe;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:24px;
+}
+
+.folder-info h3{
+
+    font-size:18px;
+
+    margin-bottom:2px;
+}
+
+.folder-info p{
+
+    color:#64748b;
+
+    font-size:12px;
+}
+
+/* RIGHT */
+
+.folder-actions{
+
+    display:flex;
+
+    gap:10px;
+}
+
+/* FLASH */
+
+.flash{
+
+    background:#dcfce7;
+
+    color:#166534;
+
+    padding:13px 15px;
+
+    border-radius:14px;
+
+    margin-bottom:16px;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+/* EMPTY */
+
+.empty{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    text-align:center;
+
+    color:#64748b;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .sidebar{
+
+        width:100%;
+
+        position:relative;
+
+        border-radius:0 0 20px 20px;
+    }
+
+    .layout{
+        display:block;
+    }
+
+    .content{
+
+        margin-left:0;
+
+        width:100%;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .top{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:14px;
+    }
+
+    .form{
+        flex-direction:column;
+    }
+
+    .folder-item{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:14px;
+    }
+
+    .folder-actions{
+
+        width:100%;
+    }
+
+    .folder-actions .btn{
+        flex:1;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <img src="{{ url_for('static', filename='img/panda.png') }}">
+
+            <div>
+
+                <h2>
+                    SIP<span>ANDA</span>
+                </h2>
+
+                <small>
+                    Sistem Arsip Digital
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- NAV -->
+
+        <nav class="nav">
+
+            <a href="{{ url_for('dashboard') }}">
+                🏠 Dashboard
+            </a>
+
+            {% for c in sidebar_categories %}
+
+            <a
+                class="{% if c.slug==cat.slug %}active{% endif %}"
+                href="{{ url_for('category', slug=c.slug) }}">
+
+                📁 {{ c.name }}
+
+            </a>
+
+            {% endfor %}
+
+            <a href="{{ url_for('logout') }}">
+                🚪 Logout
+            </a>
+
+        </nav>
+
+        <!-- USER -->
+
+        <div class="user">
+
+            <h4>
+                {{ session.name }}
+            </h4>
+
+            <small>
+                Administrator
+            </small>
+
+        </div>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <!-- TOP -->
+
+        <div class="top">
+
+            <div>
+
+                <h2>
+                    {{ cat.name }}
+                </h2>
+
+                <p>
+                    Kelola folder arsip dengan mudah
+                </p>
+
+            </div>
+
+            <a
+                class="btn"
+                href="{{ url_for('dashboard') }}">
+
+                ← Kembali
+
+            </a>
+
+        </div>
+
+        <!-- FLASH -->
+
+        {% with messages=get_flashed_messages(with_categories=true) %}
+        {% for c,m in messages %}
+
+        <div class="flash">
+            {{m}}
+        </div>
+
+        {% endfor %}
+        {% endwith %}
+
+        <!-- CREATE -->
+
+        <div class="box">
+
+            <h3>
+                📂 Buat Folder Baru
+            </h3>
+
+            <form
+                class="form"
+                method="post">
+
+                <input
+                    class="input"
+                    name="folder_name"
+                    placeholder="Contoh: Rama Andika / Berkas 2026"
+                    required>
+
+                <button class="btn">
+
+                    + Tambah
+
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <div class="search-wrap">
+
+                <span class="search-icon">
+                    🔍
+                </span>
+
+                <input
+                    type="text"
+                    id="searchFolder"
+                    placeholder="Cari nama folder...">
+
+            </div>
+
+        </div>
+
+        <!-- LIST -->
+
+        <div class="folder-list">
+
+            {% for f in folders %}
+
+            <div
+                class="folder-item"
+                data-name="{{ f.name|lower }}">
+
+                <!-- LEFT -->
+
+                <div class="folder-left">
+
+                    <div class="folder-icon">
+                        📁
+                    </div>
+
+                    <div class="folder-info">
+
+                        <h3>
+                            {{ f.name }}
+                        </h3>
+
+                        <p>
+                            {{ f.total_files }} File Arsip
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- RIGHT -->
+
+                <div class="folder-actions">
+
+                    <a
+                        class="btn"
+                        href="{{ url_for('folder_detail', folder_id=f.id) }}">
+
+                        Buka
+
+                    </a>
+
+                    <form
+                        method="post"
+                        action="{{ url_for('delete_folder', folder_id=f.id) }}"
+                        onsubmit="return confirm('Hapus folder ini?')">
+
+                        <button
+                            class="btn btn-red">
+
+                            Hapus
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty">
+
+                Belum ada folder di kategori ini.
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- SEARCH -->
+
+<script>
+
+const searchInput = document.getElementById("searchFolder");
+
+const folderItems = document.querySelectorAll(".folder-item");
+
+searchInput.addEventListener("keyup", function(){
+
+    const keyword = this.value.toLowerCase();
+
+    folderItems.forEach(folder => {
+
+        const name = folder.dataset.name;
+
+        if(name.includes(keyword)){
+
+            folder.style.display = "flex";
+
+        }else{
+
+            folder.style.display = "none";
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

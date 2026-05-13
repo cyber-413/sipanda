@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Dashboard SIPANDA</title>
+
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/panda.png') }}">
+
+<link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/panda.png') }}">
+
+<style>
+
+:root{
+    --primary:#2563eb;
+    --secondary:#60a5fa;
+    --dark:#081120;
+    --dark2:#0f172a;
+    --bg:#edf3fa;
+    --white:#ffffff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:var(--bg);
+    color:#0f172a;
+}
+
+/* ================= LAYOUT ================= */
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+
+    width:235px;
+
+    background:
+    linear-gradient(180deg,#0b4a8f,#123f73,#081120);
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    bottom:0;
+
+    padding:18px;
+
+    overflow-y:auto;
+
+    box-shadow:8px 0 30px rgba(0,0,0,.10);
+
+    z-index:999;
+}
+
+/* BRAND */
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:28px;
+}
+
+.brand img{
+
+    width:50px;
+    height:50px;
+
+    border-radius:14px;
+
+    background:white;
+
+    padding:5px;
+
+    object-fit:cover;
+}
+
+.brand-text h2{
+
+    font-size:20px;
+
+    font-weight:800;
+
+    color:white;
+
+    line-height:1.1;
+}
+
+.brand-text span{
+    color:#60a5fa;
+}
+
+.brand-text small{
+
+    color:#dbeafe;
+
+    font-size:11px;
+
+    line-height:1.4;
+
+    display:block;
+
+    margin-top:5px;
+}
+
+/* NAV */
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.nav a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    text-decoration:none;
+
+    color:#eaf3ff;
+
+    padding:11px 14px;
+
+    border-radius:14px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.nav a:hover,
+.nav a.active{
+
+    background:rgba(255,255,255,.10);
+
+    transform:translateX(3px);
+}
+
+/* USER */
+
+.user{
+
+    margin-top:25px;
+
+    padding:14px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.05);
+
+    color:white;
+}
+
+.user h4{
+    font-size:14px;
+}
+
+.user small{
+    color:#dbeafe;
+    font-size:11px;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+
+    margin-left:235px;
+
+    width:calc(100% - 235px);
+
+    padding:22px;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:22px 25px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:22px;
+
+    box-shadow:0 8px 25px rgba(15,23,42,.05);
+}
+
+.topbar h1{
+
+    font-size:28px;
+
+    font-weight:700;
+}
+
+.topbar-right{
+
+    font-size:14px;
+
+    color:#64748b;
+}
+
+/* ================= GRID ================= */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:16px;
+
+    margin-bottom:22px;
+}
+
+.card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:18px;
+
+    box-shadow:0 8px 20px rgba(15,23,42,.04);
+}
+
+/* STAT */
+
+.stat{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+}
+
+.stat-icon{
+
+    width:58px;
+    height:58px;
+
+    border-radius:16px;
+
+    background:#dbeafe;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:24px;
+}
+
+.stat-text h2{
+
+    font-size:26px;
+
+    margin-bottom:2px;
+}
+
+.stat-text p{
+
+    color:#64748b;
+
+    font-size:13px;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:24px;
+
+    margin-bottom:22px;
+
+    box-shadow:0 8px 20px rgba(15,23,42,.04);
+}
+
+.section-title{
+
+    margin-bottom:22px;
+}
+
+.section-title h2{
+
+    font-size:22px;
+
+    margin-bottom:5px;
+}
+
+.section-title p{
+
+    color:#64748b;
+
+    font-size:14px;
+}
+
+/* ================= FEATURE GRID ================= */
+
+.feature-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+    gap:16px;
+}
+
+/* FEATURE */
+
+.feature{
+
+    background:#fff;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    color:#0f172a;
+
+    transition:.3s;
+}
+
+.feature:hover{
+
+    transform:translateY(-4px);
+
+    border-color:#2563eb;
+
+    box-shadow:0 12px 25px rgba(37,99,235,.08);
+}
+
+.feature-icon{
+
+    width:65px;
+    height:65px;
+
+    border-radius:18px;
+
+    background:#dbeafe;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+    margin:auto auto 14px;
+}
+
+.feature h3{
+
+    font-size:16px;
+
+    font-weight:700;
+
+    margin-bottom:14px;
+
+    line-height:1.5;
+}
+
+/* BUTTON */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    background:
+    linear-gradient(135deg,#2563eb,#60a5fa);
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+
+    background:#f8fafc;
+
+    color:#475569;
+
+    font-size:13px;
+}
+
+th,td{
+
+    padding:14px;
+
+    text-align:left;
+
+    border-bottom:1px solid #e2e8f0;
+
+    font-size:13px;
+}
+
+tr:hover{
+    background:#f8fafc;
+}
+
+/* BADGE */
+
+.badge{
+
+    display:inline-block;
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+    padding:6px 10px;
+
+    border-radius:999px;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    margin-top:20px;
+
+    background:
+    linear-gradient(135deg,#0b4a8f,#0f172a);
+
+    border-radius:22px;
+
+    padding:18px 22px;
+
+    color:white;
+}
+
+.footer-content{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+}
+
+.footer-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.footer-left img{
+
+    width:42px;
+    height:42px;
+
+    border-radius:12px;
+
+    background:white;
+
+    padding:4px;
+}
+
+.footer-left h3{
+
+    font-size:18px;
+
+    font-weight:800;
+}
+
+.footer-left span{
+    color:#60a5fa;
+}
+
+.footer-left p{
+
+    font-size:11px;
+
+    color:#dbeafe;
+}
+
+.footer-links{
+
+    display:flex;
+
+    gap:16px;
+
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+
+    color:#dbeafe;
+
+    text-decoration:none;
+
+    font-size:13px;
+}
+
+.footer-copy{
+
+    margin-top:14px;
+
+    padding-top:12px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    text-align:center;
+
+    font-size:12px;
+
+    color:#cbd5e1;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px){
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+
+        width:100%;
+
+        position:relative;
+
+        border-radius:0 0 25px 25px;
+    }
+
+    .layout{
+        display:block;
+    }
+
+    .content{
+
+        margin-left:0;
+
+        width:100%;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .feature-grid{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <img src="{{ url_for('static', filename='img/panda.png') }}">
+
+            <div class="brand-text">
+
+                <h2>
+                    SIP<span>ANDA</span>
+                </h2>
+
+                <small>
+                    Sistem Pengumpulan Arsip dan Data
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- NAV -->
+
+        <nav class="nav">
+
+            <a class="active" href="{{ url_for('dashboard') }}">
+                🏠 Dashboard
+            </a>
+
+            {% for c in sidebar_categories %}
+
+            <a href="{{ url_for('category', slug=c.slug) }}">
+
+                📁 {{ c.name }}
+
+            </a>
+
+            {% endfor %}
+
+            <a href="{{ url_for('logout') }}">
+                🚪 Logout
+            </a>
+
+        </nav>
+
+        <!-- USER -->
+
+        <div class="user">
+
+            <h4>
+                {{ session.name }}
+            </h4>
+
+            <small>
+                Administrator SIPANDA
+            </small>
+
+        </div>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <div class="topbar-right">
+
+                🔔 Selamat datang,
+                <b>{{ session.name }}</b>
+
+            </div>
+
+        </div>
+
+        <!-- STAT -->
+
+        <div class="grid">
+
+            <div class="card">
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        📁
+                    </div>
+
+                    <div class="stat-text">
+
+                        <h2>{{ stats.folders }}</h2>
+
+                        <p>Total Folder</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        📄
+                    </div>
+
+                    <div class="stat-text">
+
+                        <h2>{{ stats.files }}</h2>
+
+                        <p>Total File</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🗂️
+                    </div>
+
+                    <div class="stat-text">
+
+                        <h2>{{ stats.categories }}</h2>
+
+                        <p>Kategori Arsip</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        👤
+                    </div>
+
+                    <div class="stat-text">
+
+                        <h2>{{ stats.users }}</h2>
+
+                        <p>User</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ARSIP -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <h2>
+                    📂 Arsip Pegawai
+                </h2>
+
+                <p>
+                    Kelola kategori arsip dengan tampilan modern
+                </p>
+
+            </div>
+
+            <div class="feature-grid">
+
+                {% for c in sidebar_categories %}
+
+                <a
+                    class="feature"
+                    href="{{ url_for('category', slug=c.slug) }}">
+
+                    <div class="feature-icon">
+                        📁
+                    </div>
+
+                    <h3>
+                        {{ c.name }}
+                    </h3>
+
+                    <span class="btn">
+                        Buka Arsip
+                    </span>
+
+                </a>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+        <!-- FILE -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <h2>
+                    📄 File Terbaru
+                </h2>
+
+                <p>
+                    Arsip terbaru yang telah diupload
+                </p>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Kategori</th>
+                            <th>Folder</th>
+                            <th>Nama File</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for f in recent %}
+
+                        <tr>
+
+                            <td>{{ f.category_name }}</td>
+
+                            <td>{{ f.folder_name }}</td>
+
+                            <td>{{ f.original_name }}</td>
+
+                            <td>{{ f.uploaded_at }}</td>
+
+                            <td>
+
+                                <span class="badge">
+                                    Tersimpan
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <a
+                                    class="btn"
+                                    href="{{ url_for('view_file', file_id=f.id) }}"
+                                    target="_blank">
+
+                                    Lihat
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+
+                            <td colspan="6">
+                                Belum ada file.
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+       
+              
+</body>
+
+</html>

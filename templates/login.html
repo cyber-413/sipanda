@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="id">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Login SIPANDA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary:#2563eb;
+    --secondary:#60a5fa;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:'Poppins',sans-serif;
+
+    background:
+    radial-gradient(circle at top left, rgba(59,130,246,.35), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(96,165,250,.25), transparent 30%),
+    linear-gradient(135deg,#081120,#0f1f3d,#1e3a5f);
+}
+
+/* LOGIN CARD */
+
+.card{
+    width:100%;
+    max-width:460px;
+
+    padding:40px;
+
+    border-radius:35px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+
+    animation:floating 4s ease-in-out infinite;
+}
+
+@keyframes floating{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* LOGO */
+
+.logo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo img{
+    width:90px;
+    height:90px;
+
+    border-radius:20px;
+
+    background:white;
+
+    padding:6px;
+
+    margin-bottom:20px;
+}
+
+.logo h1{
+    font-size:48px;
+    font-weight:800;
+    color:white;
+}
+
+.logo span{
+    color:#60a5fa;
+}
+
+.logo p{
+    color:#dbeafe;
+    margin-top:10px;
+}
+
+/* ALERT */
+
+.alert{
+    background:#fee2e2;
+    color:#991b1b;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    margin-bottom:18px;
+}
+
+/* INPUT */
+
+.group{
+    position:relative;
+    margin-bottom:20px;
+}
+
+.input{
+    width:100%;
+    height:60px;
+
+    border:none;
+    outline:none;
+
+    border-radius:18px;
+
+    padding:0 20px;
+
+    background:rgba(255,255,255,.10);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    color:white;
+
+    font-size:15px;
+}
+
+.input::placeholder{
+    color:#dbeafe;
+}
+
+.eye{
+    position:absolute;
+
+    right:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    color:white;
+}
+
+/* BUTTON */
+
+.btn{
+    width:100%;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    margin-top:10px;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+/* RESET */
+
+.reset{
+    display:block;
+
+    text-align:center;
+
+    margin-top:20px;
+
+    text-decoration:none;
+
+    color:#bfdbfe;
+}
+
+.reset:hover{
+    color:white;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    body{
+        padding:20px;
+    }
+
+    .card{
+        padding:30px 25px;
+    }
+
+    .logo h1{
+        font-size:38px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<form class="card" method="post">
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <img src="{{ url_for('static', filename='img/panda.png') }}">
+
+        <h1>
+            SIP<span>ANDA</span>
+        </h1>
+
+        <p>
+            Login Admin Dashboard Modern
+        </p>
+
+    </div>
+
+    <!-- ALERT -->
+
+    {% with messages=get_flashed_messages(with_categories=true) %}
+    {% for c,m in messages %}
+
+        <div class="alert">
+            {{m}}
+        </div>
+
+    {% endfor %}
+    {% endwith %}
+
+    <!-- USERNAME -->
+
+    <div class="group">
+
+        <input
+            class="input"
+            name="username"
+            placeholder="Username"
+            value="admin"
+            required>
+
+    </div>
+
+    <!-- PASSWORD -->
+
+    <div class="group">
+
+        <input
+            class="input"
+            type="password"
+            name="password"
+            id="password"
+            value="admin123"
+            placeholder="Password"
+            required>
+
+        <span class="eye" onclick="togglePassword()">
+            👁️
+        </span>
+
+    </div>
+
+    <!-- BUTTON -->
+
+    <button class="btn">
+        Login Dashboard
+    </button>
+
+    <!-- RESET PASSWORD -->
+
+    <a class="reset" href="{{ url_for('reset_password') }}">
+        Lupa Password / Reset Password
+    </a>
+
+</form>
+
+<script>
+
+function togglePassword(){
+
+    const password=document.getElementById("password");
+
+    if(password.type==="password"){
+        password.type="text";
+    }else{
+        password.type="password";
+    }
+
+}
+
+</script>
+
+</body>
+</html>
