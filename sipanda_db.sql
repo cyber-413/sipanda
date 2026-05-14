@@ -1,5 +1,6 @@
-CREATE DATABASE IF NOT EXISTS sipanda_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE sipanda_db;
+USE railway;
+
+SET FOREIGN_KEY_CHECKS = 0;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -8,14 +9,14 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     role ENUM('admin','pegawai') DEFAULT 'admin',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     slug VARCHAR(80) NOT NULL UNIQUE,
     name VARCHAR(150) NOT NULL,
     sort_order INT NOT NULL DEFAULT 0
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS folders (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -23,9 +24,13 @@ CREATE TABLE IF NOT EXISTS folders (
     name VARCHAR(150) NOT NULL,
     created_by INT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
-    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
-);
+    CONSTRAINT fk_folders_category
+        FOREIGN KEY (category_id) REFERENCES categories(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_folders_user
+        FOREIGN KEY (created_by) REFERENCES users(id)
+        ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS files (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,21 +41,25 @@ CREATE TABLE IF NOT EXISTS files (
     file_size BIGINT DEFAULT 0,
     uploaded_by INT NULL,
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (folder_id) REFERENCES folders(id) ON DELETE CASCADE,
-    FOREIGN KEY (uploaded_by) REFERENCES users(id) ON DELETE SET NULL
-);
+    CONSTRAINT fk_files_folder
+        FOREIGN KEY (folder_id) REFERENCES folders(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_files_user
+        FOREIGN KEY (uploaded_by) REFERENCES users(id)
+        ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS password_resets (
-
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     token VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id)
-    REFERENCES users(id)
-    ON DELETE CASCADE
+    CONSTRAINT fk_password_resets_user
+        FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-);
+SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT IGNORE INTO categories (slug, name, sort_order) VALUES
 ('ijazah','IJAZAH',1),
@@ -58,7 +67,9 @@ INSERT IGNORE INTO categories (slug, name, sort_order) VALUES
 ('ktp','KTP',3),
 ('sk-cpns','SK CPNS',4),
 ('sk-jabatan','SK JABATAN',5),
-('sk-kgb','SK KGB ( KENAIKAN GAJI BERKALA)',6),
+('sk-kgb','SK KGB (KENAIKAN GAJI BERKALA)',6),
 ('sk-pangkat','SK PANGKAT',7),
 ('sk-pns','SK PNS',8),
 ('skp','SKP',9);
+
+SHOW TABLES;
