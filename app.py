@@ -11,11 +11,13 @@ app = Flask(__name__)
 app.secret_key = "sipanda_secret_key_ganti_bebas_12345"
 
 DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",
-    "password": "",
-    "database": "sipanda_db",
+    'host': os.getenv('MYSQLHOST'),
+    'port': int(os.getenv('MYSQLPORT', 3306)),
+    'user': os.getenv('MYSQLUSER'),
+    'password': os.getenv('MYSQLPASSWORD'),
+    'database': os.getenv('MYSQLDATABASE')
 }
+
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
