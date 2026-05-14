@@ -1,28 +1,25 @@
 <!doctype html>
 <html lang="id">
-
 <head>
-
 <meta charset="utf-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Dashboard SIPANDA</title>
 
-<!-- FAVICON -->
 <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/panda.png') }}">
 
-<link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/panda.png') }}">
-
 <style>
-
 :root{
-    --primary:#2563eb;
-    --secondary:#60a5fa;
-    --dark:#081120;
-    --dark2:#0f172a;
-    --bg:#edf3fa;
+    --blue:#2563eb;
+    --blue2:#3b82f6;
+    --dark:#0b2545;
+    --dark2:#06172b;
+    --bg:#eef4fb;
     --white:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --soft:#f8fafc;
+    --shadow:0 12px 32px rgba(15,23,42,.08);
 }
 
 *{
@@ -32,98 +29,56 @@
 }
 
 body{
-    font-family:'Poppins',sans-serif;
+    font-family:Arial, sans-serif;
     background:var(--bg);
-    color:#0f172a;
+    color:var(--text);
 }
-
-/* ================= LAYOUT ================= */
 
 .layout{
     display:flex;
     min-height:100vh;
 }
 
-/* ================= SIDEBAR ================= */
-
+/* SIDEBAR */
 .sidebar{
-
-    width:235px;
-
-    background:
-    linear-gradient(180deg,#0b4a8f,#123f73,#081120);
-
+    width:245px;
     position:fixed;
-
-    top:0;
-    left:0;
-    bottom:0;
-
-    padding:18px;
-
+    inset:0 auto 0 0;
+    background:linear-gradient(180deg,#0f5599,#103f73,#06172b);
+    padding:18px 14px;
     overflow-y:auto;
-
-    box-shadow:8px 0 30px rgba(0,0,0,.10);
-
-    z-index:999;
+    z-index:10;
 }
 
-/* BRAND */
-
 .brand{
-
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
-    margin-bottom:28px;
+    margin-bottom:26px;
 }
 
 .brand img{
-
-    width:50px;
-    height:50px;
-
-    border-radius:14px;
-
-    background:white;
-
+    width:52px;
+    height:52px;
+    border-radius:15px;
+    background:#fff;
     padding:5px;
-
-    object-fit:cover;
 }
 
-.brand-text h2{
-
-    font-size:20px;
-
-    font-weight:800;
-
-    color:white;
-
-    line-height:1.1;
+.brand h2{
+    color:#fff;
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:.5px;
 }
 
-.brand-text span{
-    color:#60a5fa;
-}
-
-.brand-text small{
-
-    color:#dbeafe;
-
-    font-size:11px;
-
-    line-height:1.4;
-
+.brand small{
     display:block;
-
-    margin-top:5px;
+    color:#dbeafe;
+    font-size:11px;
+    line-height:1.35;
+    margin-top:4px;
 }
-
-/* NAV */
 
 .nav{
     display:flex;
@@ -132,55 +87,39 @@ body{
 }
 
 .nav a{
-
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
-    text-decoration:none;
-
-    color:#eaf3ff;
-
-    padding:11px 14px;
-
+    padding:12px 13px;
     border-radius:14px;
-
+    color:#eaf3ff;
+    text-decoration:none;
     font-size:14px;
-
-    font-weight:600;
-
-    transition:.3s;
+    font-weight:700;
 }
 
 .nav a:hover,
 .nav a.active{
-
-    background:rgba(255,255,255,.10);
-
-    transform:translateX(3px);
+    background:rgba(255,255,255,.13);
 }
 
-/* USER */
+.nav span{
+    width:20px;
+    text-align:center;
+}
 
 .user{
-
-    margin-top:25px;
-
-    padding:14px;
-
-    border-radius:16px;
-
-    background:rgba(255,255,255,.08);
-
-    border:1px solid rgba(255,255,255,.05);
-
-    color:white;
+    margin-top:26px;
+    padding:15px;
+    border-radius:18px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.10);
+    color:#fff;
 }
 
 .user h4{
     font-size:14px;
+    margin-bottom:4px;
 }
 
 .user small{
@@ -188,261 +127,187 @@ body{
     font-size:11px;
 }
 
-/* ================= CONTENT ================= */
-
+/* CONTENT */
 .content{
-
-    margin-left:235px;
-
-    width:calc(100% - 235px);
-
-    padding:22px;
+    margin-left:245px;
+    width:calc(100% - 245px);
+    padding:24px;
 }
 
-/* ================= TOPBAR ================= */
-
 .topbar{
-
-    background:white;
-
-    border-radius:20px;
-
-    padding:22px 25px;
-
+    background:#fff;
+    border-radius:24px;
+    padding:24px 28px;
+    box-shadow:var(--shadow);
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     margin-bottom:22px;
-
-    box-shadow:0 8px 25px rgba(15,23,42,.05);
 }
 
 .topbar h1{
-
-    font-size:28px;
-
-    font-weight:700;
+    font-size:31px;
+    font-weight:900;
 }
 
-.topbar-right{
-
+.topbar p{
+    color:var(--muted);
     font-size:14px;
-
-    color:#64748b;
 }
 
-/* ================= GRID ================= */
-
-.grid{
-
+/* STATS */
+.stats{
     display:grid;
-
     grid-template-columns:repeat(4,1fr);
-
-    gap:16px;
-
+    gap:18px;
     margin-bottom:22px;
 }
 
-.card{
-
-    background:white;
-
-    border-radius:20px;
-
-    padding:18px;
-
-    box-shadow:0 8px 20px rgba(15,23,42,.04);
-}
-
-/* STAT */
-
 .stat{
-
+    background:#fff;
+    border-radius:22px;
+    padding:20px;
     display:flex;
-
     align-items:center;
-
     gap:14px;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(226,232,240,.75);
 }
 
 .stat-icon{
-
-    width:58px;
-    height:58px;
-
-    border-radius:16px;
-
-    background:#dbeafe;
-
+    width:56px;
+    height:56px;
+    border-radius:17px;
+    background:#eff6ff;
     display:flex;
-
-    justify-content:center;
-
     align-items:center;
-
+    justify-content:center;
     font-size:24px;
 }
 
-.stat-text h2{
-
-    font-size:26px;
-
-    margin-bottom:2px;
+.stat h2{
+    font-size:28px;
+    font-weight:900;
 }
 
-.stat-text p{
-
-    color:#64748b;
-
+.stat p{
+    color:var(--muted);
     font-size:13px;
 }
 
-/* ================= SECTION ================= */
-
+/* SECTION */
 .section{
-
-    background:white;
-
-    border-radius:24px;
-
-    padding:24px;
-
-    margin-bottom:22px;
-
-    box-shadow:0 8px 20px rgba(15,23,42,.04);
-}
-
-.section-title{
-
+    background:#fff;
+    border-radius:26px;
+    padding:26px;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(226,232,240,.75);
     margin-bottom:22px;
 }
 
-.section-title h2{
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
 
-    font-size:22px;
-
+.section-head h2{
+    font-size:24px;
+    font-weight:900;
     margin-bottom:5px;
 }
 
-.section-title p{
-
-    color:#64748b;
-
+.section-head p{
+    color:var(--muted);
     font-size:14px;
 }
 
-/* ================= FEATURE GRID ================= */
-
-.feature-grid{
-
+/* ARCHIVE GRID */
+.archive-grid{
     display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-
-    gap:16px;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
 }
 
-/* FEATURE */
-
-.feature{
-
-    background:#fff;
-
-    border:1px solid #e2e8f0;
-
-    border-radius:20px;
-
-    padding:20px;
-
-    text-align:center;
-
-    text-decoration:none;
-
-    color:#0f172a;
-
-    transition:.3s;
-}
-
-.feature:hover{
-
-    transform:translateY(-4px);
-
-    border-color:#2563eb;
-
-    box-shadow:0 12px 25px rgba(37,99,235,.08);
-}
-
-.feature-icon{
-
-    width:65px;
-    height:65px;
-
-    border-radius:18px;
-
-    background:#dbeafe;
-
+.archive-card{
+    min-height:92px;
     display:flex;
-
-    justify-content:center;
-
     align-items:center;
-
-    font-size:28px;
-
-    margin:auto auto 14px;
-}
-
-.feature h3{
-
-    font-size:16px;
-
-    font-weight:700;
-
-    margin-bottom:14px;
-
-    line-height:1.5;
-}
-
-/* BUTTON */
-
-.btn{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:10px 18px;
-
-    border-radius:12px;
-
-    background:
-    linear-gradient(135deg,#2563eb,#60a5fa);
-
-    color:white;
-
+    justify-content:space-between;
+    gap:14px;
+    padding:16px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:linear-gradient(135deg,#ffffff,#f8fbff);
     text-decoration:none;
-
-    font-size:13px;
-
-    font-weight:700;
-
-    transition:.3s;
+    color:var(--text);
+    transition:.22s ease;
 }
 
-.btn:hover{
-    transform:translateY(-2px);
+.archive-card:hover{
+    transform:translateY(-3px);
+    border-color:#bfdbfe;
+    box-shadow:0 12px 24px rgba(37,99,235,.12);
 }
 
-/* ================= TABLE ================= */
+.archive-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-width:0;
+}
 
-.table-wrapper{
+.folder-mini{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    background:#eff6ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.folder-mini svg{
+    width:34px;
+    height:34px;
+}
+
+.archive-title{
+    min-width:0;
+}
+
+.archive-title h3{
+    font-size:15px;
+    font-weight:900;
+    line-height:1.3;
+    margin-bottom:5px;
+}
+
+.archive-title p{
+    font-size:12px;
+    color:var(--muted);
+}
+
+.open-btn{
+    flex-shrink:0;
+    width:38px;
+    height:38px;
+    border-radius:13px;
+    background:linear-gradient(135deg,var(--blue),var(--blue2));
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+}
+
+/* TABLE */
+.table-wrap{
     overflow-x:auto;
+    border-radius:18px;
+    border:1px solid var(--line);
 }
 
 table{
@@ -451,519 +316,262 @@ table{
 }
 
 th{
-
     background:#f8fafc;
-
     color:#475569;
-
     font-size:13px;
+    font-weight:900;
 }
 
 th,td{
-
-    padding:14px;
-
+    padding:15px;
+    border-bottom:1px solid var(--line);
     text-align:left;
-
-    border-bottom:1px solid #e2e8f0;
-
     font-size:13px;
+    white-space:nowrap;
 }
 
-tr:hover{
+tr:last-child td{
+    border-bottom:none;
+}
+
+tr:hover td{
     background:#f8fafc;
 }
 
-/* BADGE */
-
 .badge{
-
-    display:inline-block;
-
-    background:#dcfce7;
-
-    color:#15803d;
-
-    padding:6px 10px;
-
+    display:inline-flex;
+    padding:7px 11px;
     border-radius:999px;
-
+    background:#dcfce7;
+    color:#15803d;
     font-size:11px;
-
-    font-weight:700;
+    font-weight:900;
 }
 
-/* ================= FOOTER ================= */
-
-.footer{
-
-    margin-top:20px;
-
-    background:
-    linear-gradient(135deg,#0b4a8f,#0f172a);
-
-    border-radius:22px;
-
-    padding:18px 22px;
-
-    color:white;
-}
-
-.footer-content{
-
-    display:flex;
-
-    justify-content:space-between;
-
+.btn{
+    display:inline-flex;
     align-items:center;
-
-    flex-wrap:wrap;
-
-    gap:15px;
-}
-
-.footer-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-.footer-left img{
-
-    width:42px;
-    height:42px;
-
+    justify-content:center;
+    padding:9px 14px;
     border-radius:12px;
-
-    background:white;
-
-    padding:4px;
-}
-
-.footer-left h3{
-
-    font-size:18px;
-
-    font-weight:800;
-}
-
-.footer-left span{
-    color:#60a5fa;
-}
-
-.footer-left p{
-
-    font-size:11px;
-
-    color:#dbeafe;
-}
-
-.footer-links{
-
-    display:flex;
-
-    gap:16px;
-
-    flex-wrap:wrap;
-}
-
-.footer-links a{
-
-    color:#dbeafe;
-
+    background:linear-gradient(135deg,var(--blue),var(--blue2));
+    color:#fff;
     text-decoration:none;
-
-    font-size:13px;
-}
-
-.footer-copy{
-
-    margin-top:14px;
-
-    padding-top:12px;
-
-    border-top:1px solid rgba(255,255,255,.08);
-
-    text-align:center;
-
     font-size:12px;
-
-    color:#cbd5e1;
+    font-weight:900;
 }
 
-/* ================= RESPONSIVE ================= */
+.empty{
+    text-align:center;
+    color:var(--muted);
+    padding:22px;
+}
 
-@media(max-width:1100px){
-
-    .grid{
+/* RESPONSIVE */
+@media(max-width:1200px){
+    .stats{
         grid-template-columns:repeat(2,1fr);
     }
 
+    .archive-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 
-@media(max-width:900px){
-
-    .sidebar{
-
-        width:100%;
-
-        position:relative;
-
-        border-radius:0 0 25px 25px;
-    }
-
+@media(max-width:850px){
     .layout{
         display:block;
     }
 
-    .content{
-
-        margin-left:0;
-
+    .sidebar{
+        position:relative;
         width:100%;
     }
 
+    .content{
+        margin-left:0;
+        width:100%;
+    }
 }
 
-@media(max-width:700px){
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .feature-grid{
-        grid-template-columns:1fr;
+@media(max-width:620px){
+    .content{
+        padding:15px;
     }
 
     .topbar{
-
         flex-direction:column;
-
         align-items:flex-start;
-
-        gap:10px;
+        gap:8px;
     }
 
+    .stats,
+    .archive-grid{
+        grid-template-columns:1fr;
+    }
+
+    .archive-card{
+        align-items:flex-start;
+    }
 }
-
 </style>
-
 </head>
 
 <body>
-
 <div class="layout">
 
-    <!-- SIDEBAR -->
-
     <aside class="sidebar">
-
         <div class="brand">
-
-            <img src="{{ url_for('static', filename='img/panda.png') }}">
-
-            <div class="brand-text">
-
-                <h2>
-                    SIP<span>ANDA</span>
-                </h2>
-
-                <small>
-                    Sistem Pengumpulan Arsip dan Data
-                </small>
-
+            <img src="{{ url_for('static', filename='img/panda.png') }}" alt="SIPANDA">
+            <div>
+                <h2>SIPANDA</h2>
+                <small>Sistem Pengumpulan Arsip dan Data</small>
             </div>
-
         </div>
 
-        <!-- NAV -->
-
         <nav class="nav">
-
             <a class="active" href="{{ url_for('dashboard') }}">
-                🏠 Dashboard
+                <span>🏠</span> Dashboard
             </a>
 
             {% for c in sidebar_categories %}
-
             <a href="{{ url_for('category', slug=c.slug) }}">
-
-                📁 {{ c.name }}
-
+                <span>📁</span> {{ c.name }}
             </a>
-
             {% endfor %}
 
             <a href="{{ url_for('logout') }}">
-                🚪 Logout
+                <span>🚪</span> Logout
             </a>
-
         </nav>
 
-        <!-- USER -->
-
         <div class="user">
-
-            <h4>
-                {{ session.name }}
-            </h4>
-
-            <small>
-                Administrator SIPANDA
-            </small>
-
+            <h4>{{ session.name }}</h4>
+            <small>Administrator SIPANDA</small>
         </div>
-
     </aside>
-
-    <!-- CONTENT -->
 
     <main class="content">
 
-        <!-- TOPBAR -->
-
         <div class="topbar">
-
-            <h1>
-                Dashboard
-            </h1>
-
-            <div class="topbar-right">
-
-                🔔 Selamat datang,
-                <b>{{ session.name }}</b>
-
+            <div>
+                <h1>Dashboard</h1>
             </div>
-
+            <p>🔔 Selamat datang, <b>{{ session.name }}</b></p>
         </div>
 
-        <!-- STAT -->
-
-        <div class="grid">
-
-            <div class="card">
-
-                <div class="stat">
-
-                    <div class="stat-icon">
-                        📁
-                    </div>
-
-                    <div class="stat-text">
-
-                        <h2>{{ stats.folders }}</h2>
-
-                        <p>Total Folder</p>
-
-                    </div>
-
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-icon">📁</div>
+                <div>
+                    <h2>{{ stats.folders }}</h2>
+                    <p>Total Folder</p>
                 </div>
-
             </div>
 
-            <div class="card">
-
-                <div class="stat">
-
-                    <div class="stat-icon">
-                        📄
-                    </div>
-
-                    <div class="stat-text">
-
-                        <h2>{{ stats.files }}</h2>
-
-                        <p>Total File</p>
-
-                    </div>
-
+            <div class="stat">
+                <div class="stat-icon">📄</div>
+                <div>
+                    <h2>{{ stats.files }}</h2>
+                    <p>Total File</p>
                 </div>
-
             </div>
 
-            <div class="card">
-
-                <div class="stat">
-
-                    <div class="stat-icon">
-                        🗂️
-                    </div>
-
-                    <div class="stat-text">
-
-                        <h2>{{ stats.categories }}</h2>
-
-                        <p>Kategori Arsip</p>
-
-                    </div>
-
+            <div class="stat">
+                <div class="stat-icon">🗂️</div>
+                <div>
+                    <h2>{{ stats.categories }}</h2>
+                    <p>Kategori Arsip</p>
                 </div>
-
             </div>
 
-            <div class="card">
-
-                <div class="stat">
-
-                    <div class="stat-icon">
-                        👤
-                    </div>
-
-                    <div class="stat-text">
-
-                        <h2>{{ stats.users }}</h2>
-
-                        <p>User</p>
-
-                    </div>
-
+            <div class="stat">
+                <div class="stat-icon">👤</div>
+                <div>
+                    <h2>{{ stats.users }}</h2>
+                    <p>User</p>
                 </div>
-
             </div>
-
         </div>
-
-        <!-- ARSIP -->
 
         <section class="section">
-
-            <div class="section-title">
-
-                <h2>
-                    📂 Arsip Pegawai
-                </h2>
-
-                <p>
-                    Kelola kategori arsip dengan tampilan modern
-                </p>
-
+            <div class="section-head">
+                <div>
+                    <h2>Arsip Pegawai</h2>
+                    <p>Pilih kategori arsip untuk mengelola folder dan file pegawai.</p>
+                </div>
             </div>
 
-            <div class="feature-grid">
-
+            <div class="archive-grid">
                 {% for c in sidebar_categories %}
+                <a class="archive-card" href="{{ url_for('category', slug=c.slug) }}">
+                    <div class="archive-left">
+                        <div class="folder-mini">
+                            <svg viewBox="0 0 64 64" fill="none">
+                                <path d="M8 18C8 14.7 10.7 12 14 12H26.5C28.1 12 29.7 12.7 30.8 13.9L35 18H50C53.3 18 56 20.7 56 24V46C56 49.3 53.3 52 50 52H14C10.7 52 8 49.3 8 46V18Z" fill="#F59E0B"/>
+                                <path d="M8 25H56V46C56 49.3 53.3 52 50 52H14C10.7 52 8 49.3 8 46V25Z" fill="#FBBF24"/>
+                                <path d="M14 30H50" stroke="#FDE68A" stroke-width="3" stroke-linecap="round"/>
+                            </svg>
+                        </div>
 
-                <a
-                    class="feature"
-                    href="{{ url_for('category', slug=c.slug) }}">
-
-                    <div class="feature-icon">
-                        📁
+                        <div class="archive-title">
+                            <h3>{{ c.name }}</h3>
+                            <p>Buka kategori arsip</p>
+                        </div>
                     </div>
 
-                    <h3>
-                        {{ c.name }}
-                    </h3>
-
-                    <span class="btn">
-                        Buka Arsip
-                    </span>
-
+                    <div class="open-btn">›</div>
                 </a>
-
                 {% endfor %}
-
             </div>
-
         </section>
 
-        <!-- FILE -->
-
         <section class="section">
-
-            <div class="section-title">
-
-                <h2>
-                    📄 File Terbaru
-                </h2>
-
-                <p>
-                    Arsip terbaru yang telah diupload
-                </p>
-
+            <div class="section-head">
+                <div>
+                    <h2>File Terbaru</h2>
+                    <p>Arsip terbaru yang telah diupload.</p>
+                </div>
             </div>
 
-            <div class="table-wrapper">
-
+            <div class="table-wrap">
                 <table>
-
                     <thead>
-
                         <tr>
-
                             <th>Kategori</th>
                             <th>Folder</th>
                             <th>Nama File</th>
                             <th>Tanggal</th>
                             <th>Status</th>
                             <th>Aksi</th>
-
                         </tr>
-
                     </thead>
 
                     <tbody>
-
                         {% for f in recent %}
-
                         <tr>
-
                             <td>{{ f.category_name }}</td>
-
                             <td>{{ f.folder_name }}</td>
-
                             <td>{{ f.original_name }}</td>
-
                             <td>{{ f.uploaded_at }}</td>
-
+                            <td><span class="badge">Tersimpan</span></td>
                             <td>
-
-                                <span class="badge">
-                                    Tersimpan
-                                </span>
-
-                            </td>
-
-                            <td>
-
-                                <a
-                                    class="btn"
-                                    href="{{ url_for('view_file', file_id=f.id) }}"
-                                    target="_blank">
-
+                                <a class="btn" href="{{ url_for('view_file', file_id=f.id) }}" target="_blank">
                                     Lihat
-
                                 </a>
-
                             </td>
-
                         </tr>
-
                         {% else %}
-
                         <tr>
-
-                            <td colspan="6">
-                                Belum ada file.
-                            </td>
-
+                            <td colspan="6" class="empty">Belum ada file yang diupload.</td>
                         </tr>
-
                         {% endfor %}
-
                     </tbody>
-
                 </table>
-
             </div>
-
         </section>
 
-       
-              
+    </main>
+</div>
 </body>
-
 </html>
